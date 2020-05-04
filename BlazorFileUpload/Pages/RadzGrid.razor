@@ -1,0 +1,40 @@
+﻿@page "/radzgrid"
+@using BlazorFileUpload.Data
+@inject ProductService productService 
+<h3>RadzenGrid - How to use Radzen Blazor DataGrid</h3>
+
+@if(product == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+    <RadzenGrid AllowFiltering="true" 
+                FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" 
+                AllowPaging="true" 
+                PageSize="4" 
+                AllowSorting="true" 
+                Data="@product" 
+                TItem="Product_RadzenGrid" 
+                ColumnWidth="150px">
+        <Columns>
+            <RadzenGridColumn TItem="Product_RadzenGrid" Property="ProductID" Title="Product ID"></RadzenGridColumn>
+            <RadzenGridColumn TItem="Product_RadzenGrid" Property="ProductName" Title="Product Name"></RadzenGridColumn>
+            <RadzenGridColumn TItem="Product_RadzenGrid" Property="PurchaseDate" Title="Purchase Date">
+                <Template Context="data">
+                    @String.Format("{0:d}", data.PurchaseDate)
+                </Template>
+            </RadzenGridColumn>
+            <RadzenGridColumn TItem="Product_RadzenGrid" Property="Price" Title="Price"></RadzenGridColumn>
+        </Columns>
+    </RadzenGrid>
+}
+
+@code {
+    IEnumerable<Product_RadzenGrid> product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await Task.Run(() => productService.ProductList());
+    }
+}

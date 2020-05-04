@@ -1,0 +1,40 @@
+﻿@page "/autocomplete"
+
+@using Blazored.Typeahead
+@using BlazorFileUpload.Data
+
+<h3>AutoComplete - Autocomplete in blazor | Blazored Typehead</h3>
+
+<BlazoredTypeahead SearchMethod="SearchProducts" @bind-Value="SelectedProduct">
+    <SelectedTemplate>
+        @context.ProductName
+    </SelectedTemplate>
+    <ResultTemplate>
+        @context.ProductName <strong>@context.Price</strong>
+    </ResultTemplate>
+</BlazoredTypeahead>
+
+@if (SelectedProduct != null)
+{
+    <p>Selected Product is : @SelectedProduct.ProductName</p>
+
+}
+@code {
+    private List<Product> products;
+    private Product SelectedProduct;
+
+    protected override void OnInitialized()
+    {
+        products = new List<Product>
+        {
+            new Product("Computer", 50000),
+            new Product("Computer", 50000),
+            new Product("Mouse", 2000),
+            new Product("keyboard", 300),
+        };
+    }
+
+    private async Task<IEnumerable<Product>> SearchProducts(string searcheText) {
+        return await Task.FromResult(products.Where(x => x.ProductName.ToLower().Contains(searcheText.ToLower())).ToList());
+    }
+}

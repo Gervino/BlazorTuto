@@ -1,0 +1,100 @@
+﻿@page "/Item/blazorchart"
+@using Blazor.Extensions.Canvas;
+@using Blazor.Extensions;
+@using Blazor.Extensions.Canvas.Canvas2D;
+@using BlazorFileUpload.Data.Item;
+@inject ItemService itemService
+
+<h3>BlazorBarChart - Blazor Bar Chart Using Canvas Extensions</h3>
+<br />
+
+<BECanvas Width="800"
+          Height="500"
+          @ref="_canvasReference"           
+          ></BECanvas>
+
+@code {
+    private Canvas2DContext _context;
+    protected BECanvasComponent _canvasReference;
+    ItemInfo[] itemArrays;
+
+    private static readonly string[] pirChartColor = new[]
+    {
+        "#6CBB3C",
+        "#F87217",
+        "#EAC117",
+        "#EDDA74",
+        "#CD7F32",
+        "#CCFB5D",
+        "#FDD017",
+        "#9DC209",
+        "#E67451",
+        "#728C00",
+        "#617C58",
+        "#64E986"
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        itemArrays = await itemService.GetItemInfo();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        //int lastend = 0;
+        int xSpace = 10;
+        int XvalPosition = xSpace;
+        int maxDataVal = itemArrays.Max(row => row.ItemQty);
+
+        int widthCalculation = (Convert.ToInt32(_canvasReference.Width) - 100) / itemArrays.Length;
+        int chartHeigth = Convert.ToInt32(_canvasReference.Height) - 40;
+
+        this._context = await this._canvasReference.CreateCanvas2DAsync();
+        int colorval = 0;
+
+        //Draw axises
+        await this._context.BeginPathAsync();
+        await this._context.MoveToAsync(xSpace, xSpace);
+
+        //Draw y axis
+        await this._context.LineToAsync(xSpace, chartHeigth);
+
+        //Draw x axis
+        await this._context.LineToAsync(Convert.ToInt32(_canvasReference.Width) - 10, chartHeigth);
+        await this._context.StrokeAsync();
+
+        @foreach(var itemArray in itemArrays)
+        {
+            XvalPosition = XvalPosition + widthCalculation;
+            await this._context.MoveToAsync(XvalPosition, chartHeigth);
+            await this._context.LineToAsync(XvalPosition, chartHeigth + 15);
+            await this._context.StrokeAsync();
+            await this._context.SetFillStyleAsync("#034560");
+            await this._context.SetFontAsync("12pt calibri");
+            await this._context.StrokeTextAsync(itemArray.ItemName, XvalPosition - 40, chartHeigth + 24);
+
+            //Draw bar graph
+            var barRatio = maxDataVal - itemArray.ItemQty;
+            var barfillHeight = Convert.ToInt32(barRatio * (Convert.ToInt32(chartHeigth - xSpace)));
+            barfillHeight = Convert.ToInt32(chartHeigth) - barRatio;
+
+            await this._context.SetFillStyleAsync("#00000");
+            await this._context.FillRectAsync(XvalPosition - widthCalculation - 1, chartHeigth - 1, widthCalculation + 3, -(barfillHeight - 58));
+
+
+            await this._context.SetFillStyleAsync(pirChartColor[colorval]);
+            await this._context.FillRectAsync(XvalPosition - widthCalculation, chartHeigth, widthCalculation + 2, -(barfillHeight - 60));
+
+            //Add value in each bar
+            await this._context.SetFillStyleAsync("#00000");
+            await this._context.SetFontAsync("18pt calibri");
+            await this._context.FillTextAsync(itemArray.ItemQty.ToString(), XvalPosition - widthCalculation + 4, chartHeigth / 2);
+            await this._context.SetFillStyleAsync(pirChartColor[colorval]);
+
+            //End Draw bar graph
+
+            colorval++;
+        }
+
+    }
+}

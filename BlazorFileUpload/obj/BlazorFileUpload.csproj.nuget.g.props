@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\kouge\.nuget\packages\;C:\Microsoft\Xamarin\NuGet\;C:\Program Files\dotnet\sdk\NuGetFallbackFolder</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">5.5.0</NuGetToolVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Content Include="$(NuGetPackageRoot)radzen.blazor\2.6.6\contentFiles\any\netstandard2.1\Properties\launchSettings.json" Condition="Exists('$(NuGetPackageRoot)radzen.blazor\2.6.6\contentFiles\any\netstandard2.1\Properties\launchSettings.json')">
+      <NuGetPackageId>Radzen.Blazor</NuGetPackageId>
+      <NuGetPackageVersion>2.6.6</NuGetPackageVersion>
+      <NuGetItemType>Content</NuGetItemType>
+      <Private>False</Private>
+      <Link>Properties\launchSettings.json</Link>
+    </Content>
+  </ItemGroup>
+  <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <Import Project="$(NuGetPackageRoot)microsoft.aspnetcore.components.analyzers\3.1.2\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.props" Condition="Exists('$(NuGetPackageRoot)microsoft.aspnetcore.components.analyzers\3.1.2\build\netstandard2.0\Microsoft.AspNetCore.Components.Analyzers.props')" />
+    <Import Project="$(NuGetPackageRoot)radzen.blazor\2.6.6\buildTransitive\Radzen.Blazor.props" Condition="Exists('$(NuGetPackageRoot)radzen.blazor\2.6.6\buildTransitive\Radzen.Blazor.props')" />
+    <Import Project="$(NuGetPackageRoot)c1.blazor.core\3.1.20201.445\build\C1.Blazor.Core.props" Condition="Exists('$(NuGetPackageRoot)c1.blazor.core\3.1.20201.445\build\C1.Blazor.Core.props')" />
+    <Import Project="$(NuGetPackageRoot)c1.blazor.listview\3.1.20201.445\build\C1.Blazor.ListView.props" Condition="Exists('$(NuGetPackageRoot)c1.blazor.listview\3.1.20201.445\build\C1.Blazor.ListView.props')" />
+    <Import Project="$(NuGetPackageRoot)c1.blazor.input\3.1.20201.445\build\C1.Blazor.Input.props" Condition="Exists('$(NuGetPackageRoot)c1.blazor.input\3.1.20201.445\build\C1.Blazor.Input.props')" />
+    <Import Project="$(NuGetPackageRoot)c1.blazor.grid\3.1.20201.445\build\C1.Blazor.Grid.props" Condition="Exists('$(NuGetPackageRoot)c1.blazor.grid\3.1.20201.445\build\C1.Blazor.Grid.props')" />
+    <Import Project="$(NuGetPackageRoot)c1.blazor.datapager\3.1.20201.445\build\C1.Blazor.DataPager.props" Condition="Exists('$(NuGetPackageRoot)c1.blazor.datapager\3.1.20201.445\build\C1.Blazor.DataPager.props')" />
+    <Import Project="$(NuGetPackageRoot)blazorinputfile\0.1.0-preview-00002\buildTransitive\BlazorInputFile.props" Condition="Exists('$(NuGetPackageRoot)blazorinputfile\0.1.0-preview-00002\buildTransitive\BlazorInputFile.props')" />
+    <Import Project="$(NuGetPackageRoot)blazored.typeahead\4.3.0\buildTransitive\Blazored.Typeahead.props" Condition="Exists('$(NuGetPackageRoot)blazored.typeahead\4.3.0\buildTransitive\Blazored.Typeahead.props')" />
+    <Import Project="$(NuGetPackageRoot)blazor.extensions.canvas\1.1.0-preview1\buildTransitive\Blazor.Extensions.Canvas.props" Condition="Exists('$(NuGetPackageRoot)blazor.extensions.canvas\1.1.0-preview1\buildTransitive\Blazor.Extensions.Canvas.props')" />
+  </ImportGroup>
+</Project>

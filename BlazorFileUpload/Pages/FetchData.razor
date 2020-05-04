@@ -1,0 +1,79 @@
+﻿@page "/fetchdata"
+
+@using BlazorFileUpload.Data
+@inject WeatherForecastService ForecastService
+
+@using C1.Blazor.Grid
+@using C1.Blazor.Input
+@using C1.Blazor.DataPager
+@using C1.DataCollection
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+<p>How to use FlexGrid in Blazor.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    @*<table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <tr>
+                    <td>@forecast.Date.ToShortDateString()</td>
+                    <td>@forecast.TemperatureC</td>
+                    <td>@forecast.TemperatureF</td>
+                    <td>@forecast.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+    <C1TextBox @bind-Text="filterText"></C1TextBox>
+
+    <FlexGrid ItemsSource="forecasts"
+              AutoGenerateColumns="false"
+              DefaultColumnWidth="GridLength.Star"
+              ColumnHeaderStyle="@("font-weight:bold")"
+              >
+        <FlexGridBehaviors>
+            <FullTextFilterBehavior FilterString="@filterText" MatchNumbers="true"></FullTextFilterBehavior>
+        </FlexGridBehaviors>
+        <FlexGridColumns>
+            <GridColumn Binding="Date" Format="d"></GridColumn>
+            <GridColumn Binding="TemperatureC" Header="Temp. (C)"></GridColumn>
+            <GridColumn Binding="TemperatureF" Header="Temp. (F)"></GridColumn>
+            <GridColumn Binding="Summary"></GridColumn>
+        </FlexGridColumns>
+    </FlexGrid>
+
+    <C1DataPager Source="forecasts"></C1DataPager>
+
+}
+
+@code {
+    //private WeatherForecast[] forecasts;
+    C1PagedDataCollection<WeatherForecast> forecasts;
+
+    private string filterText;
+
+    protected override async Task OnInitializedAsync()
+    {
+        //forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        var data = await ForecastService.GetForecastAsync(DateTime.Now);
+        forecasts = new C1PagedDataCollection<WeatherForecast>(data) { 
+            PageSize = 5
+        };
+    }
+}

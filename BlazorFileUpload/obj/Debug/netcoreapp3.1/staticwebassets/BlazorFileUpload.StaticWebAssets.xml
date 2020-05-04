@@ -1,0 +1,11 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="_content/Blazor.Extensions.Canvas" Path="C:\Users\kouge\.nuget\packages\blazor.extensions.canvas\1.1.0-preview1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Blazored.Typeahead" Path="C:\Users\kouge\.nuget\packages\blazored.typeahead\4.3.0\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/BlazorInputFile" Path="C:\Users\kouge\.nuget\packages\blazorinputfile\0.1.0-preview-00002\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/C1.Blazor.Core" Path="C:\Users\kouge\.nuget\packages\c1.blazor.core\3.1.20201.445\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/C1.Blazor.DataPager" Path="C:\Users\kouge\.nuget\packages\c1.blazor.datapager\3.1.20201.445\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/C1.Blazor.Grid" Path="C:\Users\kouge\.nuget\packages\c1.blazor.grid\3.1.20201.445\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/C1.Blazor.Input" Path="C:\Users\kouge\.nuget\packages\c1.blazor.input\3.1.20201.445\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/C1.Blazor.ListView" Path="C:\Users\kouge\.nuget\packages\c1.blazor.listview\3.1.20201.445\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Radzen.Blazor" Path="C:\Users\kouge\.nuget\packages\radzen.blazor\2.6.6\build\..\staticwebassets\" />
+</StaticWebAssets>

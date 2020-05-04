@@ -1,0 +1,73 @@
+﻿@page "/dropdown"
+@using BlazorFileUpload.Data
+@inject ProductService productService
+
+<h3>DropDown Example - How to use Radzen Blazor DropDownDataGrid</h3>
+
+@if (products == null)
+{
+    <p><em>Loading ...</em></p>
+}
+else
+{
+    <RadzenDropDownDataGrid TValue="string"
+                            FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true"
+                            AllowClear="true"
+                            Data="@(products.Select(c => new {
+                                        ProductId = c.ProductId,
+                                        ProductName = c.ProductName})
+                            .Distinct().AsQueryable())"
+                            TextProperty="ProductName"
+                            ValueProperty="ProductId"
+                            Style="margin-bottom:20px"
+                            Placeholder="Select..."
+                            Change="@(args => Change(args, "DropDown"))">
+    </RadzenDropDownDataGrid>
+
+    <RadzenDropDownDataGrid FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive"
+                            AllowFiltering="true"
+                            AllowClear="true"
+                            Data="@(products)"
+                            @bind-Value="multipleValues"
+                            Multiple="true"
+                            TextProperty="ProductName"
+                            ValueProperty="ProductId"
+                            Style="margin-bottom:20px"
+                            Placeholder="Select..."
+                            Change="@(args => Change(args, "Multiple Select DropDown"))">
+    </RadzenDropDownDataGrid>
+
+    <div class="col-md-6">
+        <h3>Event</h3>
+        <RadzenCard Style="overflow:auto;height:500px;">
+            @foreach (var e in events.OrderByDescending(i => i.Key))
+            {
+                @e.Value
+                <br />
+
+            }
+        </RadzenCard>
+    </div>
+}
+
+
+@code {
+    IEnumerable<Product_DropDownDataGrid> products;
+    IEnumerable<string> multipleValues;
+    string value;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Task.Run(() => productService.ProductList_DropDownDataGrid());
+    }
+
+    Dictionary<DateTime, string> events = new Dictionary<DateTime, string>();
+
+    void Change(object value, string name)
+    {
+        var str = value is IEnumerable<object> ? string.Join(", ", (IEnumerable<object>)value) : value;
+        events.Add(DateTime.Now, $"{name} value change to {str}");
+        StateHasChanged();
+    }
+}
